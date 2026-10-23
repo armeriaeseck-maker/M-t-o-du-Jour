@@ -717,6 +717,27 @@ svg {
        letter-spacing: 0.02em;
 }
 
+.hourly-grid {
+       display: none;
+}
+
+.hourly-grid.visible {
+       display: grid;
+       grid-template-columns: repeat(3, 1fr);
+       gap: 10px;
+}
+
+.details-meteo {
+       margin-top: 20px;
+       padding: 20px;
+       border-radius: 16px;
+       background: #d7e6dd;
+}
+
+.details-meteo p {
+       margin: 8px 0;
+}
+
 @media (max-width: 1000px) {
        .contenair {
               padding-inline: 4vw;

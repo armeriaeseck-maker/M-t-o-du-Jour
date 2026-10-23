@@ -5,6 +5,27 @@ let selectedUnit = "c";
 
 const $ = (selector) => document.querySelector(selector);
 
+const hourlyGrid = document.getElementById("hourly-grid");
+
+const btnDetails = document.getElementById("btnDetails");
+const detailsMeteo = document.getElementById("detailsMeteo");
+
+btnDetails.addEventListener("click", () => {
+       detailsMeteo.hidden = !detailsMeteo.hidden;
+});
+document.getElementById("hourly-grid").innerHTML = `
+<div class="hour">
+   <span>12h</span>
+   <strong>27°</strong>
+</div>
+
+<div class="hour">
+   <span>15h</span>
+   <strong>29°</strong>
+</div>
+`;
+
+
 function convertTemperature(value) {
        return selectedUnit === "c"
               ? Math.round(value)
@@ -128,38 +149,34 @@ async function loadForecast(city) {
               console.error(error);
        }
 }
-
 function renderWeather(weather) {
        const type = getWeatherType(weather.condition);
 
        $("#nomVille").textContent = weather.city;
        $("#nomRegion").textContent = weather.region;
 
-       $("#current-temperature").textContent =
-              degree(weather.temperature);
-
+       $("#current-temperature").textContent = degree(weather.temperature);
        $("#condition").textContent = weather.condition;
-
        $("#temperature-range").textContent =
               `${degree(weather.high)} / ${degree(weather.low)}`;
 
        $("#summary").textContent =
               `Temps actuel à ${weather.city}`;
 
-       $("#impression").textContent =
-              degree(weather.feels);
-
-       $("#humidity").textContent =
-              `${weather.humidity}%`;
-
-       $("#wind").textContent =
-              `${weather.wind} km/h`;
-
-       $("#visibility").textContent =
-              `${weather.visibility} km`;
+       $("#impression").textContent = degree(weather.feels);
+       $("#humidity").textContent = `${weather.humidity}%`;
+       $("#wind").textContent = `${weather.wind} km/h`;
+       $("#visibility").textContent = `${weather.visibility} km`;
 
        $("#hero-weather").innerHTML =
               weatherSymbol(type, true);
+
+       // détails
+       $("#detailsHumidity").textContent = `${weather.humidity}%`;
+       $("#detailsWind").textContent = `${weather.wind} km/h`;
+       $("#detailsVisibility").textContent = `${weather.visibility} km`;
+       $("#detailsFeels").textContent = degree(weather.feels);
+       $("#detailsCondition").textContent = weather.condition;
 }
 
 $("#dateJour").textContent =
